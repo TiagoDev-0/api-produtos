@@ -72,6 +72,26 @@ app.post('/produtos', (req, res) => {
         res.json(produto);
     })
 
+    app.delete('/produtos/:id', (req, res) => {
+
+        const id = Number(req.params.id);
+        
+        const indice = produtos.findIndex((p) => p.id === id);
+
+        if ( indice === -1) {
+        return res.status(404).json({
+            erro: 'Produto não encontrado'
+        });
+
+        }
+
+        produtos.splice(indice, 1);
+
+        res.status(204).send();
+
+    })
+
+
 app.listen(PORT, () => {
       console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
